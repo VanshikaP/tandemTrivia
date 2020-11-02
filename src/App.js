@@ -47,11 +47,15 @@ function App() {
       setShowCorrectAns(true)
       // move to new question and update progress bar after 2 seconds
       setTimeout(() => {
-          setOptions([...questionsSet[currQues+1].incorrect, questionsSet[currQues+1].correct].sort(() => 0.5 - Math.random()))
-          setCurrQues(currQues + 1)
-          setProgress(progress + 10)
-          setShowCorrectAns(false)
-      }, 2000)
+          if (progress < 90){
+            setOptions([...questionsSet[currQues+1].incorrect, questionsSet[currQues+1].correct].sort(() => 0.5 - Math.random()))
+            setCurrQues(currQues + 1)
+            setProgress(progress + 10)
+            setShowCorrectAns(false)
+          } else{
+            setProgress(100)
+          }
+      }, 1000)
     }
   return (
     <div className="App">
@@ -60,20 +64,29 @@ function App() {
           Tandem Trivia
         </h1>
       </div>
-      <div className='content'>
-        <ProgressBar progress={progress}/>
-        <ScoreBox score={score}/>
-        <QuestionBox 
-          question={questionsSet[currQues].question}
-          options={options}
-          correct = {questionsSet[currQues].correct}
-          selectAnswer={selectAnswer}
-          selected={selected}
-          submitAnswer={submitAnswer}
-          clearSelection={clearSelection}
-          showCorrectAns={showCorrectAns}
-        />
-      </div>
+      {progress < 100 && (
+        <div className='content'>
+          <ProgressBar progress={progress}/>
+          <ScoreBox score={score}/>
+          <QuestionBox 
+            question={questionsSet[currQues].question}
+            options={options}
+            correct = {questionsSet[currQues].correct}
+            selectAnswer={selectAnswer}
+            selected={selected}
+            submitAnswer={submitAnswer}
+            clearSelection={clearSelection}
+            showCorrectAns={showCorrectAns}
+          />
+        </div>
+      )}
+      {progress === 100 && (
+        <div className='content'>
+          <ProgressBar progress={progress}/>
+          <ScoreBox score={score}/>
+          <h2>Thank you for answering the quiz!</h2>
+        </div>
+      )}
     </div>
   );
 }
