@@ -43,7 +43,7 @@ function App() {
       if(answer === questionsSet[currQues].correct){
           // increment the score
           setScore(score + 1)
-      }
+      } 
 
       // highlight the correct answer
       setShowCorrectAns(true)
@@ -52,6 +52,7 @@ function App() {
           setOptions([...questionsSet[currQues+1].incorrect, questionsSet[currQues+1].correct].sort(() => 0.5 - Math.random()))
           setCurrQues(currQues + 1)
           setProgress(progress + 10)
+          setShowCorrectAns(false)
       }, 2000)
     }
   return (
@@ -63,6 +64,7 @@ function App() {
       </div>
       <div className='content'>
         <ProgressBar progress={progress}/>
+        <ScoreBox score={score}/>
         <QuestionBox 
           question={questionsSet[currQues].question}
           options={options}
@@ -73,7 +75,6 @@ function App() {
           clearSelection={clearSelection}
           showCorrectAns={showCorrectAns}
         />
-        <ScoreBox score={score}/>
       </div>
     </div>
   );
