@@ -17,7 +17,6 @@ function App() {
   const [showCorrectAns, setShowCorrectAns] = useState(false)
 
   const selectAnswer = (e, o) => {
-    console.log('Selected', o)
     setSelected(o)
     
     // clear other selected answers highlights
@@ -38,7 +37,6 @@ function App() {
       }
 
   const submitAnswer = (answer) => {
-      console.log('submitted answer', answer)
       // check if answer is correct
       if(answer === questionsSet[currQues].correct){
           // increment the score
